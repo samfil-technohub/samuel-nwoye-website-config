@@ -1,0 +1,18 @@
+# Stop Services
+- name: Stop NodeExporter
+  service:  
+    name: node_exporter 
+    state: stopped 
+
+# Start Services
+- name: Start NodeExporter
+  service:  
+    name: node_exporter 
+    state: started 
+    enabled: yes
+
+# Restart Services
+- name: Restart NodeExporter
+  service:  
+    name: node_exporter  
+    state: restarted
