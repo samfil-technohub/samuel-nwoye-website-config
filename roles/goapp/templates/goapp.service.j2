@@ -1,0 +1,12 @@
+[Unit]
+Description=goapp
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5s
+WorkingDirectory={{ansible_env.PWD}}/goprojects/src
+ExecStart={{ansible_env.PWD}}/goprojects/src/main
+
+[Install]
+WantedBy=multi-user.target

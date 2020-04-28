@@ -1,0 +1,20 @@
+---
+- name: Configure  Development Server
+  hosts: development
+  become: true
+  become_method: sudo
+  roles:
+    - utils
+    - ruby
+    - golang
+    
+- name: Configure Production Server
+  hosts: tag_Name_samuel_nwoye_website_ws
+  become: true
+  become_method: sudo
+  roles: 
+    # - utils
+    # - ruby
+    # - golang
+    # - node-exporter
+    # - goapp

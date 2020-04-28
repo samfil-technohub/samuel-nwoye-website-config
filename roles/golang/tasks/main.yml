@@ -1,0 +1,37 @@
+---
+- name: Set Directory Names
+  set_fact:
+    parent_directory:
+    - "golibs"
+    - "goprojects"
+    sub_directories:
+    - "bin"
+    - "src"
+    - "pkg"
+
+- name: Create Directories
+  file:
+    path: "{{ ansible_env.PWD }}/{{item.0}}/{{item.1}}" 
+    state: directory
+    mode: '0775'
+  with_nested:
+  - "{{ parent_directory }}"
+  - "{{ sub_directories }}"
+
+- name: Install Go
+  unarchive:
+    src: https://dl.google.com/go/go1.14.1.linux-amd64.tar.gz
+    dest: /usr/local/
+    remote_src: yes
+
+- name: Append the Go Environment to .profile
+  blockinfile:
+    dest: "{{ansible_env.PWD}}/.profile"
+    content: |
+      # Go environment settings
+      export PATH=$PATH:/usr/local/go/bin
+
+      # Go libs and projects settings
+      export GOPATH=$HOME/golibs
+      export PATH=$PATH:$GOPATH/bin
+      export GOPATH=$GOPATH:$HOME/goprojects

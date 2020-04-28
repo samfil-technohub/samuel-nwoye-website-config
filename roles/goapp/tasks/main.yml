@@ -1,0 +1,29 @@
+---
+- name: Remove Existing Files in Folder
+  file:
+    path: "{{ansible_env.PWD}}/goprojects/src/"
+    state: absent
+    
+- name: Deploy the Application
+  git: 
+    repo: 'https://github.com/samfil-technohub/samuel-nwoye-website.git'
+    dest: "{{ansible_env.PWD}}/goprojects/src"
+    #version: "{{ lookup('env','RELEASE_TAG') }}" #release-0.22
+  changed_when: true
+
+- name: Configure Nginx Proxy for the Application
+  template:
+    src: "{{item.src}}"
+    dest: "/etc/nginx/conf.d/{{item.dest}}"
+  loop:
+    - {src: 'goapp.conf.j2', dest: 'nginx.conf'} 
+  notify:
+    - Reload Daemon 
+
+- name: Configure GoApp Service
+  template:
+    src: goapp.service.j2
+    dest: /etc/systemd/system/goapp.service
+  notify:
+    - Start GoApp
+    - Restart Nginx
