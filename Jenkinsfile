@@ -20,7 +20,7 @@ pipeline {
       steps {
         unstash 'ws'
         sh 'packer --version'
-        sh 'packer build server-ami.json'
+        sh 'packer build -var-file=server-vars.json server-ami.json'
       }
     }
   }
