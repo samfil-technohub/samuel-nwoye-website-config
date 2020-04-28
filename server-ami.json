@@ -48,7 +48,7 @@
       "type": "shell",
       "inline": [ 
         "echo 'Checking that Server is Configured as Desired'",
-        "cd /tmp/servicespec && sudo -H -u root bash -c 'rake -v -t'"
+        "cd /tmp/serverspec && sudo -H -u root bash -c 'rake -v -t'"
         ]
     }
   ]
