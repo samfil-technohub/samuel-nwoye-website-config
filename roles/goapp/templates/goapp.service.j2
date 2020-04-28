@@ -7,7 +7,6 @@ ConditionPathExists={{ansible_env.PWD}}/goprojects/src/main
 Type=simple
 Restart=always
 RestartSec=5s
-Environment=GOPATH={{ansible_env.GOPATH}}
 WorkingDirectory={{ansible_env.PWD}}/goprojects/src
 ExecStart={{ansible_env.PWD}}/goprojects/src/main
 
