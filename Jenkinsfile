@@ -17,12 +17,10 @@ pipeline {
     }
     stage ('Template') {
       // Build Test and Register the Golden Image
-      dir ('configuration') {
-        steps {
-          unstash 'ws'
-          sh 'packer --version'
-          sh 'packer build server-ami.json'
-        }
+      steps {
+        unstash 'ws'
+        sh 'packer --version'
+        sh 'packer build server-ami.json'
       }
     }
   }
