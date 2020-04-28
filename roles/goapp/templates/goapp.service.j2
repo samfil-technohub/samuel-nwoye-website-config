@@ -4,6 +4,8 @@ After=network.target
 ConditionPathExists={{ansible_env.PWD}}/goprojects/src/main
 
 [Service]
+User=goapp
+Group=goapp
 Type=simple
 Restart=always
 RestartSec=5s
