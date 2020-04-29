@@ -8,7 +8,6 @@
   git: 
     repo: 'https://github.com/samfil-technohub/samuel-nwoye-website.git'
     dest: "{{ansible_env.PWD}}/goprojects/src"
-    mode: '0775'
     #version: "{{ lookup('env','RELEASE_TAG') }}" #release-0.22
 
 - name: Configure GoApp Service
