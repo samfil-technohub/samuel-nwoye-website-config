@@ -1,21 +1,4 @@
 ---
-- name: Create GoApp System Group 
-  group:
-    name: goapp
-    system: yes
-    state: present
-
-- name: Add GoApp User to Prometheus Group
-  user:
-    name: goapp
-    shell: /sbin/nologin
-    system: yes
-    groups:
-      - goapp  
-    append: yes
-    create_home: no
-    state: present 
-
 - name: Remove Existing Files in Folder
   file:
     path: "{{ansible_env.PWD}}/goprojects/src/"
@@ -32,8 +15,6 @@
   template:
     src: goapp.service.j2
     dest: /etc/systemd/system/goapp.service
-    owner: goapp
-    group: goapp
   notify:
     - Start GoApp
 

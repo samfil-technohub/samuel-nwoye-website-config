@@ -14,8 +14,7 @@
     path: "{{ ansible_env.PWD }}/{{item.0}}/{{item.1}}" 
     state: directory
     mode: '0775'
-    owner: goapp
-    group: goapp
+    owner: "{{ansible_user}}"
   with_nested:
   - "{{ parent_directory }}"
   - "{{ sub_directories }}"
