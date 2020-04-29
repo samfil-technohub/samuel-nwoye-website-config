@@ -10,6 +10,12 @@
     dest: "{{ansible_env.PWD}}/goprojects/src"
     #version: "{{ lookup('env','RELEASE_TAG') }}" #release-0.22
 
+- name: Make the Binary Executable
+  file:
+    path: "{{ansible_env.PWD}}/goprojects/src/main"
+    mode: '0775'
+    state: present
+
 - name: Configure GoApp Service
   template:
     src: goapp.service.j2
@@ -22,7 +28,7 @@
     src: "{{item.src}}"
     dest: "/etc/nginx/conf.d/{{item.dest}}"
   loop:
-    - {src: 'goapp.conf.j2', dest: 'nginx.conf'} 
+    - {src: 'goapp.conf.j2', dest: 'default.conf'} 
   notify:
     - Reload Daemon 
     - Restart Nginx
