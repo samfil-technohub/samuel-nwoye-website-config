@@ -1,9 +1,16 @@
 ---
 - name: Install Requisite Packages
   apt:
-    name: ['apt-transport-https','ca-certificates','curl','git','apache2-utils','libnss3-tools']
+    name: ['apt-transport-https','ca-certificates','curl','git']
     state: present
     update_cache: yes
+
+# - name: Install Requisite Packages from APT-GET
+#   apt:
+#     name: ['build-essential','unzip','apache2-utils','libnss3-tools']
+#     state: present
+#     force_apt_get: yes
+#     update_cache: yes
 
 - name: Add User to Existing Groups
   user:
