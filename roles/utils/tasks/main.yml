@@ -1,7 +1,7 @@
 ---
 - name: Install Requisite Packages
   apt:
-    name: ['apt-transport-https','ca-certificates','curl','git','apache2-utils','libnss3-tools','unzip']
+    name: ['apt-transport-https','ca-certificates','curl','git','apache2-utils','libnss3-tools']
     state: present
     update_cache: yes
 
