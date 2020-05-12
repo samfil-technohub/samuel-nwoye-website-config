@@ -25,3 +25,11 @@ describe 'GoApp' do
     expect(port 80).to be_listening 'tcp'
   end
 end
+
+describe 'NodeExporter' do
+  it 'is expected to be installed, running, enabled and listening on 9100' do
+    expect(file '/usr/local/bin/node_exporter').to exist & be_executable
+    expect(service 'node_exporter').to be_running & be_enabled
+    expect(port 9100).to be_listening 'tcp'
+  end
+end

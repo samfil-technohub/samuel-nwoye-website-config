@@ -11,15 +11,10 @@
 
 - name: Install Nginx
   apt: 
-   name: nginx=1.17.9-1~{{ansible_lsb.codename}}
+   name: nginx=1.17.10-1~{{ansible_lsb.codename}}
    state: present
   notify:
     - Stop Nginx
-
-- name: Create TLS Certificates Directory
-  file: 
-    path: /etc/nginx/ssl
-    state: directory
 
 - name: Open Ports
   ufw:
