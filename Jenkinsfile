@@ -11,7 +11,7 @@ pipeline {
     stage ('Checkout') {
       // Checkout Repository
       steps {
-        checkout([$class:'GitSCM', branches: [[name: '*/master'], [name: '*/develop'], [name: '*/release']], 
+        checkout([$class:'GitSCM', branches: [[name: '*/master']], 
         doGenerateSubmoduleConfigurations:false, extensions:[], submoduleCfg:[],
         userRemoteConfigs:[[ url:'https://github.com/samfil-technohub/samuel-nwoye-website-config.git']]])     
       }
