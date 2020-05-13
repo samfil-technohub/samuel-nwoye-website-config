@@ -1,0 +1,15 @@
+---
+- name: Install Package and its Dependencies
+  apt: 
+   name: 'ruby2.3' 
+   state: present
+   force_apt_get: yes
+   update_cache: yes
+
+- name: Install Gem Required Packages
+  gem: 
+   name: serverspec
+   state: present
+
+
+    

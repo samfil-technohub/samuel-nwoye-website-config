@@ -1,0 +1,11 @@
+- name: Uninstall APT Packages
+  apt:
+    name: "{{item}}"
+    state: absent
+  loop: "{{apt_packages}}"
+
+- name: Remove Configuration Files and Folders
+  file:
+    path: "{{item}}"
+    state: absent
+  loop: "{{resource_path}}"

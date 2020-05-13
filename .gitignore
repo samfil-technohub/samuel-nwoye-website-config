@@ -1,0 +1,8 @@
+*.key
+*.crt
+.terraform
+.vagrant
+token
+*.tfstate.*
+inputs.auto.tfvars
+*.deb

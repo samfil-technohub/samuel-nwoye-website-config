@@ -1,0 +1,27 @@
+- name: Install Nginx Key
+  apt_key: 
+   url: http://nginx.org/keys/nginx_signing.key 
+   state: present
+  run_once: yes
+
+- name: Add Nginx Source Repo
+  apt_repository: 
+   repo: deb http://nginx.org/packages/mainline/ubuntu/ {{ansible_lsb.codename}} nginx  
+   state: present
+
+- name: Install Nginx
+  apt: 
+   name: nginx=1.17.10-1~{{ansible_lsb.codename}}
+   state: present
+  notify:
+    - Stop Nginx
+
+- name: Open Ports
+  ufw:
+    rule: allow
+    proto: tcp
+    port: "{{item}}"
+  loop:
+    - 80
+  notify:
+    - Start Nginx

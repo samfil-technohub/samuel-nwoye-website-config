@@ -1,0 +1,55 @@
+{
+  "description": "Samuel Nwoye Personal Page",
+  "variables": {
+    "ami_name": "samuel-nwoye-website",
+    "ami_version": null,
+    "region": "eu-west-1",
+    "ssh_username": "ubuntu"      
+  },
+  "builders": [
+    { 
+      "ami_name": "{{user `ami_name`}}-{{timestamp}}",
+      "instance_type": "t2.micro",
+      "region": "{{user `region`}}",
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "name": "ubuntu/images/hvm-ssd/*ubuntu-xenial-16.04-amd64-server-*",
+          "root-device-type": "ebs",
+          "architecture": "x86_64"
+        },
+        "owners": [
+          "099720109477"
+        ],
+        "most_recent": true
+      },
+      "ssh_username": "{{user `ssh_username`}}",
+      "profile": "knoxknot",
+      "type": "amazon-ebs",
+      "tags": {
+        "Name": "{{user `ami_name`}}-{{user `ami_version`}}",
+        "CreatedBy": "Packer",
+        "CreationDate": "{{timestamp}}"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "extra_arguments": [ "-vvvv" ],
+      "playbook_file": "server-template.yml"
+    },
+    {
+      "type": "file",
+      "source": "serverspec",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "shell",
+      "inline": [ 
+        "echo 'Checking that Server is Configured as Desired'",
+        "cd /tmp/serverspec && sudo -H -u root bash -c 'rake -v -t'"
+        ]
+    }
+  ]
+}
