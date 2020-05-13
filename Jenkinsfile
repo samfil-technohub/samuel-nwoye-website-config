@@ -11,16 +11,21 @@ pipeline {
     stage ('Checkout') {
       // Checkout Repository
       steps {
-        checkout([$class:'GitSCM', branches:[[name:'*/*']], doGenerateSubmoduleConfigurations:false, extensions:[], submoduleCfg:[], userRemoteConfigs:[[url:'https://github.com/samfil-technohub/samuel-nwoye-website-config.git']]])
-        stash(name: 'ws', includes: '**', excludes: '**/.git/**')     
+        checkout([$class:'GitSCM', branches: [[name: '*/master'], [name: '*/develop'], [name: '*/release']], 
+        doGenerateSubmoduleConfigurations:false, extensions:[], submoduleCfg:[],
+        userRemoteConfigs:[[ url:'https://github.com/samfil-technohub/samuel-nwoye-website-config.git']]])     
       }
     }
     stage ('Template') {
-      // Build Test and Register the Golden Image
+      // Build Test and Register the Golden Image 
       steps {
-        unstash 'ws'
         sh 'packer --version'
-        sh 'packer build -var-file=server-vars.json server-ami.json'
+        sh 'packer build -var-file=server-vars.json server-ami.json' 
+      }
+    }
+    stage ('Clean Workspace'){
+      steps {
+        cleanWs()
       }
     }
   }
